@@ -1,0 +1,527 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <cmath>
+#include <map>
+
+using namespace std;
+
+void fun(long x)
+{
+	map<long, long> s;
+
+	for (int i = 1; i <= sqrt(x) + 1; i++)
+	{
+		if (x % i == 0)
+		{
+			if (i % 2 == 0)
+			{
+				s[i] = 1;
+			}
+			long k = x / i;
+			if (k % 2 == 0)
+			{
+				s[k] = 1;
+			}
+
+		}
+	}
+	if (s.size() == 4)
+	{
+		for (auto dom : s)
+		{
+
+			cout << dom.first << " ";
+		}
+		cout << endl;
+	}
+}
+
+int main() {
+
+	for (long i = 190201; i <= 190280; i++)
+	{
+		fun(i);
+	}
+	
+
+}
+
+/*
+#include <iostream>
+#include <vector>
+#include <unordered_set>
+#include <ctime>
+
+
+using namespace std;
+
+int main() {
+
+	int n, m, k;
+	long long t;
+	cin >> n >> m >> k >> t;
+
+	srand(time(0));
+
+	int max = 1000;
+	bool check2 = false;
+
+	vector<long long> one(n), two(m), three(k);
+
+	for (int z = 0; z < max; z++) {
+		unordered_set<long long> summa;
+
+		bool check = true;
+
+
+		for (int i = 0; i < n; i++) {
+
+			one[i] = rand() % t;
+
+		}
+		for (int i = 0; i < m; i++) {
+
+			two[i] = rand() % t;
+
+		}
+		for (int i = 0; i < k; i++) {
+
+			three[i] = rand() %  t;
+
+		}
+
+
+
+		for (int i = 0; i < n && check; i++) {
+
+
+			for (int p = 0; p < m; p++) {
+
+				for (int v = 0; v < k; v++) {
+
+					long long sum = one[i] + two[p] + three[v];
+					if (summa.find(sum) != summa.end()) {
+
+						check = false;
+						break;
+					}
+					summa.insert(sum);
+				}
+
+			}
+		}
+
+		if (check) {
+			check2 = true;
+			break;
+		}
+	}
+
+	if (check2) {
+		for (int i = 0; i < n; i++) {
+
+			cout << one[i] << " ";
+
+		}
+		cout << endl;
+		for (int i = 0; i < m; i++) {
+
+			cout << two[i] << " ";
+
+		}
+		cout << endl;
+		for (int i = 0; i < k; i++) {
+
+			cout << three[i] << " ";
+
+		}
+		cout << endl;
+	}
+
+}
+*/
+
+
+/*
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <string>
+#include <unordered_map>
+
+
+using namespace std;
+
+
+int main() {
+
+	long n, finsum = -1, a, b;
+	cin >> n;
+	unordered_map<long, long> znach;
+	unordered_map<long, vector<long>> kubs;
+	unordered_map<long, long> cifri;
+	for (long i = 0; i < n; i++)
+	{
+		long s, v, o;
+		cin >> s >> v >> o;
+		kubs[i].push_back(s);
+		kubs[i].push_back(v);
+		kubs[i].push_back(o);
+	}
+	vector<long> per(n);
+	for (long i = 0; i < n; i++)
+	{
+		per[i] = i;
+	}
+	for (long i = 0; i < n; i++)
+	{
+		cifri[kubs[i][2]] += 1;
+	}
+	for (long i = 0; i < n; i++)
+	{
+		for (long j = 0; j < n; j++)
+		{
+			long sum = 0;
+			if (i != j)
+			{
+				sum = kubs[i][0] + kubs[j][1];
+			}
+			if (sum == finsum && (cifri[i] > 1 || cifri[j] > 1))
+			{
+				if (cifri[kubs[i][2]] > 1)
+				{
+					znach[kubs[i][2]] = 1;
+				}
+				if (cifri[kubs[j][2]] > 1)
+				{
+					znach[kubs[j][2]] = 1;
+				}
+			}
+			if (sum > finsum && (cifri[i] > 1 || cifri[j] > 1))
+			{
+				finsum = sum;
+				znach.clear();
+				if (cifri[kubs[i][2]] > 1)
+				{
+					znach[kubs[i][2]] = 1;
+				}
+				if (cifri[kubs[j][2]] > 1)
+				{
+					znach[kubs[j][2]] = 1;
+				}
+
+			}
+
+		}
+	}
+	if (finsum == -1)
+	{
+		cout << -1;
+	}
+	else
+	{
+		cout << finsum << endl << znach.size() << endl;
+
+		for (auto pups : znach)
+		{
+			cout << pups.first << " ";
+
+		}
+	}
+}
+
+*/
+
+
+/*#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <string>
+#include <unordered_map>
+
+
+using namespace std;
+
+
+int main() {
+
+	long n, finsum =  -1, a, b;
+	cin >> n;
+	unordered_map<long, long> znach;
+	unordered_map<long, vector<long>> kubs;
+	unordered_map<long, long> cifri;
+	for (long i = 0; i < n; i++)
+	{
+		long s, v, o;
+		cin >> s >> v >> o; 
+		kubs[i].push_back(s);
+		kubs[i].push_back(v);
+		kubs[i].push_back(o);
+	}
+	vector<long> per(n);
+	for (long i = 0; i < n; i++)
+	{
+		per[i] = i;
+	}
+	for (long i = 0; i < n; i++)
+	{
+		cifri[kubs[i][2]] += 1;
+	}
+	for (long i = 0; i < n; i++)
+	{
+		for (long j = 0; j < n; j++)
+		{
+			long sum = 0;
+			if (i != j)
+			{
+				sum = kubs[i][0] + kubs[j][1];
+			}
+			if (sum == finsum && (cifri[i] > 1 || cifri[j] > 1))
+			{
+				znach[kubs[i][2]] = 1;
+				znach[kubs[j][2]] = 1;
+			}
+			if (sum > finsum && (cifri[i] > 1 || cifri[j] > 1))
+			{
+				finsum = sum;
+				znach.clear();
+				znach[kubs[i][2]] = 1;
+				znach[kubs[j][2]] = 1;
+			}
+			
+		}
+	}
+	if (finsum == -1)
+	{
+		cout << -1;
+	}
+	else
+	{
+		cout << finsum << endl << znach.size() << endl;
+
+		for (auto pups : znach)
+		{
+			cout << pups.first << " ";
+
+		}
+	}
+}*/
+/*
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <string>
+
+using namespace std;
+
+
+int main() {
+
+	string s;
+	long n;
+	cin >> s >> n;
+	vector<string> slova(n);
+	for (long i = 0; i < n; i++)
+	{
+		cin >> slova[i];
+	}
+	
+	for (long i = 0; i < n; i++)
+	{
+		int z = 0;
+		long k = 0;
+		for (long j = 0; j < s.size(); j++)
+		{
+			if (s[j] == slova[i][k])
+			{
+				k += 1;
+				if (k == slova[i].size())
+				{
+					cout << "YES" << endl;
+					z = 1;
+					break;
+				}
+			}
+
+
+		}
+		if (z == 0)
+		{
+			cout << "NO" << endl;
+		}
+		
+
+	}
+
+
+}
+
+
+*/
+
+
+/*
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <string>
+
+using namespace std;
+
+
+int main() {
+	int min = 1000002, ind;
+
+	vector<int> cifr(10);
+	for (int i = 0; i < 10; i++)
+	{
+		cin >> cifr[i];
+	}
+	for (int i = 1; i < 10; i++)
+	{
+		if (cifr[i] < min)
+		{
+			min = cifr[i];
+			ind = i;
+		}
+	}
+	if (min <= cifr[0])
+	{
+		for (int j = 0; j <= cifr[j]; j++)
+		{
+			cout << ind;
+		}
+	}
+	else
+	{
+		cout << 1;
+		for (int i = 0; i <= cifr[0]; i++)
+		{
+			cout << 0;
+		}
+	}
+
+}
+*/
+
+
+
+/*
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+
+int main() {
+	
+
+	long a, b, razn, ost;
+	cin >> a >> b;
+	if (b == a)
+	{
+		cout << 1;
+	}
+	if (b > a) {
+		razn = b - a;
+	}
+	if (a > b) {
+		razn = a - b;
+	}
+
+	if (razn == 1)
+	{
+		cout << 1;
+	}
+	else {
+		if (razn <= min(a, b))
+		{
+			cout << razn;
+		}
+		else
+		{
+			ost = (max(a, b) - 2 * min(a, b));
+			long fin = ost + min(a, b);
+			cout << fin;
+		}
+	}
+
+}
+*/
+
+/*#include <iostream>
+#include <string>
+#include <tuple>
+#include <vector>
+
+using namespace std;
+
+tuple<int, int, int> Find_maxtross(vector<int> A, int low, int mid, int high)
+{
+	int left_sum = -10000000, max_left;
+	int suml = 0;
+
+	for (int i = mid; i > low; i--)
+	{
+		suml = suml + A[i];
+		if (suml > left_sum)
+		{
+			left_sum = suml;
+			max_left = i;
+		}
+	}
+	int right_sum = -10000000, max_right;
+	int sumr = 0;
+
+	for (int i = mid + 1; i < high; i++)
+	{
+		sumr = sumr + A[i];
+		if (sumr > right_sum)
+		{
+			right_sum = sumr;
+			max_right = i;
+		}
+	}
+	return {max_left, max_right, left_sum + right_sum};
+}
+
+tuple<int, int, int> Find_max(vector<int> A, int low,int high)
+{
+	if (high == low)
+	{
+		return { low, high, A[low] };
+	}
+	else
+	{
+		int mid = (low + high) / 2;
+		int right_low, right_hight, right_sum, left_low, left_high, left_sum, cross_low, cross_high, cross_sum;
+		tuple<int, int, int> { left_low, left_high, left_sum } = Find_max(A, low, mid);
+		tuple<int, int, int> { right_low, right_hight, right_sum } = Find_max(A, mid + 1, high);
+		tuple<int, int, int> { cross_low, cross_high, cross_sum } = Find_maxtross(A, low, mid, high);
+
+		if (left_sum >= right_sum && left_sum >= cross_sum)
+		{
+			return { left_low, left_high, left_sum };
+		}
+		else if (right_sum >= left_sum && right_sum >= cross_sum)
+		{
+			return { right_low, right_hight, right_sum };
+		}
+		else
+		{
+			return { cross_low, cross_high, cross_sum };
+		}
+
+	}
+	
+
+}
+
+int main() {
+
+	vector<int> A = {5, -1, 6, 2, -4, -2, 4};
+	Find_max(A, 0, A.size() - 1);
+
+}*/
